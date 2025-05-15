@@ -1,0 +1,3 @@
+rootProject.name = 'BausteineVerteilterSysteme_02'
+include 'JsonRpcClient'
+
