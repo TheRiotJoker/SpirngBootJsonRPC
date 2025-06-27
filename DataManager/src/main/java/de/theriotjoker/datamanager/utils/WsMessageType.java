@@ -1,0 +1,5 @@
+package de.theriotjoker.datamanager.utils;
+
+public enum WsMessageType {
+    REGISTER, COST_THRESHOLD_CHANGE, CUSTOMER_COST_ENQUIRY, CHECK_THRESHOLD, LIST_INSTANCES, INSTANCE_COST_ENQUIRY
+}

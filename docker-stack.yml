@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  datamanager:
+    image: datamanager:latest
+    ports:
+      - "8081:8081"
+    deploy:
+      replicas: 1
+
+  mathfactory:
+    image: mathfactory:latest
+    ports:
+      - "8080:8080"
+    deploy:
+      restart_policy:
+        condition: on-failure
+      replicas: 4
+
+  opsdb:
+    image: postgres
+    environment:
+      POSTGRES_DB: opsdb
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  custdb:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: custdb
+      POSTGRES_USER: custuser
+      POSTGRES_PASSWORD: custsecret
+    volumes:
+      - custdata:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+
+volumes:
+  pgdata:
+  custdata:

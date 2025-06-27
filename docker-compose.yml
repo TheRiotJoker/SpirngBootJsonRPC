@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  DataManager:
+    image: datamanager:latest
+    build:
+      context: .
+      dockerfile: dockerfiles/datamanager.Dockerfile
+    ports:
+      - "8081:8081"
+  MathFactory:
+    image: mathfactory:latest
+    build:
+      context: .
+      dockerfile: dockerfiles/mathfactory.Dockerfile
+    ports:
+      - "8080:8080"
+  postgres:
+    image: postgres
+    container_name: local-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: opsdb
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  custdb:
+    image: postgres:16
+    container_name: cust-db
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_DB: custdb
+      POSTGRES_USER: custuser
+      POSTGRES_PASSWORD: custsecret
+    volumes:
+      - custdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
+  custdata:
+
+
